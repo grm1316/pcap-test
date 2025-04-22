@@ -6,38 +6,38 @@
 // 이더넷 헤더 구조체
 struct libnet_ethernet_hdr
 {
-    u_int8_t  ether_dhost[6];    /* destination eth addr */
-    u_int8_t  ether_shost[6];    /* source ether addr    */
-    u_int16_t ether_type;        /* packet type ID field */
+    u_int8_t  ether_dhost[6];    // destination eth address
+    u_int8_t  ether_shost[6];    // source ether address
+    u_int16_t ether_type;        // packet type ID
 };
 
 // IP 헤더 구조체
 struct libnet_ipv4_hdr
 {
-    u_int8_t ip_vhl;             /* version << 4 | header length >> 2 */
-    u_int8_t ip_tos;             /* type of service */
-    u_int16_t ip_len;            /* total length */
-    u_int16_t ip_id;             /* identification */
-    u_int16_t ip_off;            /* fragment offset field */
-    u_int8_t ip_ttl;             /* time to live */
-    u_int8_t ip_p;               /* protocol */
-    u_int16_t ip_sum;            /* checksum */
-    struct in_addr ip_src, ip_dst; /* source and dest address */
+    u_int8_t ip_vhl;             // ipv4 header //length >> 2
+    u_int8_t ip_tos;             // type of service
+    u_int16_t ip_len;            // total length
+    u_int16_t ip_id;             // identification
+    u_int16_t ip_off;            // fragment offset field
+    u_int8_t ip_ttl;             // time to live
+    u_int8_t ip_p;               // protocol
+    u_int16_t ip_sum;            // checksum
+    struct in_addr ip_src, ip_dst; // source and dest address
 };
 
 // TCP 헤더 구조체
 struct libnet_tcp_hdr
 {
-    u_int16_t th_sport;          /* source port */
-    u_int16_t th_dport;          /* destination port */
-    u_int32_t th_seq;            /* sequence number */
-    u_int32_t th_ack;            /* acknowledgement number */
-    u_int8_t th_x2:4,           /* unused */
-    th_off:4;                   /* data offset */
-    u_int8_t  th_flags;          /* control flags */
-    u_int16_t th_win;            /* window */
-    u_int16_t th_sum;            /* checksum */
-    u_int16_t th_urp;            /* urgent pointer */
+    u_int16_t th_sport;          // source port
+    u_int16_t th_dport;          // destination port
+    u_int32_t th_seq;            // sequence number
+    u_int32_t th_ack;            // acknowledgement number
+    u_int8_t th_x2:4,            // unused
+    th_off:4;                    // data offset
+    u_int8_t  th_flags;          // control flags
+    u_int16_t th_win;            // window
+    u_int16_t th_sum;            // checksum
+    u_int16_t th_urp;            // urgent pointer
 };
 
 void usage() {
@@ -78,8 +78,6 @@ void print_payload(const u_char* data, int length) {
 
 void analyze_packet(const u_char* packet, int caplen) {
     struct libnet_ethernet_hdr* eth_hdr = (struct libnet_ethernet_hdr*)packet;
-
-     printf("Packet captured! Length: %d\n", caplen);  // 디버깅 메시지
 
     // IP 패킷인지 확인
     if (ntohs(eth_hdr->ether_type) != 0x0800)
